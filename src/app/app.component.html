@@ -2,10 +2,15 @@
   <h1 class="title">{{title}}</h1>
   <ul class="task-list">
     <h2>TODOS</h2>
-    <li (click)="clickaronEn(item.title)" *ngFor="let item of tasks" class="task">
-      <span class="complete-btn"></span>
-      <span class="task-title">{{ item.title }}</span>
-      <span class="delete-btn">X</span>
+    <input [(ngModel)]="newTodoTitle" (keyup.enter)="saveNewTask()" type="text" placeholder="Titulo de la nueva tarea">
+    <li
+      [ngClass]="{ 'completed' : currentTask.completed }"
+      *ngFor="let currentTask of tasks" class="task">
+      <span (click)="completeThisTask(currentTask)" class="complete-btn">
+        <button></button>
+      </span>
+      <span class="task-title">{{ currentTask.title }}</span>
+      <span (click)="deleteThisTask(currentTask)" class="delete-btn">X</span>
     </li>
   </ul>
 </div>
