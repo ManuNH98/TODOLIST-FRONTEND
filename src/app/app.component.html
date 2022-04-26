@@ -1,5 +1,7 @@
 <div class="container">
   <h1 class="title">{{title}}</h1>
+  <img src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" *ngIf="loading"/>
+
   <ul class="task-list">
     <h2>TODOS</h2>
     <input [(ngModel)]="newTodoTitle" (keyup.enter)="saveNewTask()" type="text" placeholder="Titulo de la nueva tarea">

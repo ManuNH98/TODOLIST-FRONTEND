@@ -8,14 +8,20 @@ import { Task } from '../app/models/task.model'
 })
 export class AppComponent {
   title = 'Proyecto de Prueba de Manuel Navarro';
-
   newTodoTitle = "";
+  loading : boolean = false;
 
   tasks : Task[] = [];
 
   constructor(private tasksService : TasksService){
-    this.tasksService.cargarTodos().then(todos=>{
-      this.tasks = todos;
+    this.loadTodos();
+  }
+
+  loadTodos(){
+    this.loading = true;
+    this.tasksService.cargarTodos().then(tasks => {
+      this.tasks = tasks
+      this.loading = false;
     })
   }
 
@@ -24,7 +30,12 @@ export class AppComponent {
   }
 
   deleteThisTask(task : Task){
-    this.tasks = this.tasks.filter(t => t._id !== task._id);
+    this.loading = true;
+
+    this.tasksService.delete(task._id as string)
+      .then(response => {
+        this.tasks = this.tasks.filter(t => t._id !== task._id)
+      })
   }
 
   saveNewTask(){
@@ -32,6 +43,13 @@ export class AppComponent {
     .then((newTask) => {
       this.tasks.unshift(newTask);
       this.newTodoTitle = "";
+    })
+    .catch(err => {
+      console.log({err})
+      if(err && err.response && err.response.data && err.response.data.errors && err.response.data.errors.title){
+        alert('Tienes un error en el titulo');
+        alert(err.response.data.errors.title)
+      }
     })
   }
 }
