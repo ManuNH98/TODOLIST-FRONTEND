@@ -1,0 +1,28 @@
+.conatiner{
+    max-width:720px;
+    margin: auto;
+}
+
+.title{
+    text-align: center;
+}
+
+.completed{
+    color: green;
+    text-decoration-line: line-through;}
+
+.task-list{
+    border: 2px solid black;
+    padding: 20px;
+}
+
+.task-list h2{
+    text-align: center;
+    font-size: 24px;
+}
+
+.task{
+    margin: 20px;
+    list-style: none;
+    font-weigth: bold;
+}
